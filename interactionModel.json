@@ -1,0 +1,134 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "name my pet",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "NamePet",
+                    "slots": [
+                        {
+                            "name": "petType",
+                            "type": "AMAZON.Animal",
+                            "samples": [
+                                "alligator",
+                                "bunny",
+                                "rabbit",
+                                "cat ",
+                                "dog"
+                            ]
+                        },
+                        {
+                            "name": "sex",
+                            "type": "Sex",
+                            "samples": [
+                                "girl",
+                                "boy",
+                                "female",
+                                "male"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "give me a pet name",
+                        "I need a pet name",
+                        "name pet",
+                        "name my pet",
+                        "name my pet {petType}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "Sex",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "girl"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "boy"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "female"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "male "
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "NamePet",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "petType",
+                            "type": "AMAZON.Animal",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1005438561142.304960931979"
+                            }
+                        },
+                        {
+                            "name": "sex",
+                            "type": "Sex",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1005438561142.28318009861"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1005438561142.304960931979",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what kind of pet do you have"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1005438561142.28318009861",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what is the sex of your pet"
+                    }
+                ]
+            }
+        ]
+    }
+}
