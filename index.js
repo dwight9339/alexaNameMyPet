@@ -1,15 +1,11 @@
 /* eslint-disable  func-names */
 /* eslint-disable  no-console */
 const Alexa = require('alexa-sdk');
+const petNames = require("./names");
 
-//To hold pet names
-const pets = {
-
-}
-
-var namePet = function(pType, sex){
-    var name = "Insert name here";
-    return name;
+var namePet = function(petType, petGender){
+    const len = petNames[petType][petGender].length;
+    return petNames[petType][petGender][Math.floor(Math.random() * len)];
 }
 
 var Handlers = {
@@ -18,28 +14,24 @@ var Handlers = {
     },
     "NamePet": function(){
         const intentObj = this.event.request.intent;
-        const sexPrompt = "What is the sex of your pet?";
-        const rePromptSex = "Sorry, I didn't catch that " + sexPrompt;
+        const genderPrompt = "What is your pet's gender?";
+        const rePromptGender = "Sorry, I didn't catch that " + genderPrompt;
         const typePrompt = "What type of pet do you have?";
         const rePromptType = "Sorry, I didn't catch that, " + typePrompt;
 
-        if (!intentObj.slots.petType.value){
+        if (!intentObj.slots.petType.value) {
              //this.emit(':elicitSlot', 'petType', typePrompt, rePromptType);
             this.response.speak(typePrompt).listen(rePromptType);
             this.emit(':responseReady');
+        } else if (!intentObj.slots.gender.value) {
+            this.emit(':elicitSlot', 'gender', genderPrompt, rePromptGender);
         } else {
-            this.response.speak('Ok, how about charlie');
+            var petType = intentObj.slots.petType.value;
+            var petGender = intentObj.slots.gender.value;
+            var petName = namePet(petType, petGender);
+            this.response.speak("Ok, how about " + petName);
             this.emit(':responseReady');
         }
-        // else if (!intentObj.slots.sex.value){
-        //     this.emit(':elicitSlot', 'sex', sexPrompt, rePromptSex);
-        // } else {
-        //     var pType = intentObj.slots.petType.value;
-        //     var petSex = intentObj.slots.sex.value;
-        //     var petName = namePet(pType, petSex);
-        //     this.response.speak("Ok, how about " + petName);
-        //     this.emit(':responseReady');
-        // }
     }
 }
 
